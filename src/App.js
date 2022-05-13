@@ -1,10 +1,10 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, useQuery, from, gql } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
-
+// "@apollo/react-hooks": "^4.0.0",s
 // import { useMutation } from "@apollo/client";
-// import { CREATE_JOB } from "./GraphQL/Mutations";
+// import { POST_JOB } from "./GraphQL/Mutations";
 
 //catch errors while connecting
 const errorLink = onError(({ grapghqlErrors, networkErrors }) => {
@@ -33,9 +33,29 @@ const App = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
+  // const [postJob, { error }] = useMutation(POST_JOB);
+
+  // const post_Job = () => {
+  //   postJob({
+  //     input: {
+  //       ...formValues, ['title']: "p 1",
+  //       ...formValues, ['commitment']: 'commitment',
+  //       ...formValues, ['companyName']: 'companyName',
+  //       ...formValues, ['location']: 'location',
+  //       ...formValues, ['email']: 'email',
+  //       ...formValues, ['description']: 'description',
+  //       ...formValues, ['applyUrl']: 'applyUrl',
+  //     },
+  //   });
+
+  //   // if (error) {
+  //   //   console.log(error);
+  //   // }
+  // };
 
 
-  //const [createJob, { error }] = useMutation(CREATE_JOB);
+
+
 
 
 
@@ -65,6 +85,8 @@ const App = () => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     const commitmentId = "cjtu8esth000z0824x00wtp1i";
     const companyName = "Trimulabs";
+
+    // setCommitment(!values.commitment);
 
     if (!values.jobTitle) {
       errors.jobTitle = "Job Title is required!";
@@ -102,109 +124,84 @@ const App = () => {
     if (!values.applyUrl) {
       errors.applyUrl = "URL is required!";
     }
+
     return errors;
   };
 
-  // const addJob = () => {
-  //   createJob({
-  //     variables: {
-  //       jobTitle: jobTitle,
-  //       commitment: commitment,
-  //       companyName: companyName,
-  //       location: location,
-  //       location: email,
-  //       description: description,
-  //       applyUrl: applyUrl,
-  //     },
-  //   });
-
-  //   if (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-
-
-
-
-
-
-
-
-
   // Creating UI (form)
+
   return (
-    <ApolloProvider client={client}>
-      <>
-        <form onSubmit={handleSubmit}>
 
-          <h1>Post Job - Trimulabs</h1>
+    <>
+      <form onSubmit={handleSubmit}>
 
-          <input
-            type='text'
-            name='jobTitle'
-            placeholder="Job Title"
-            value={formValues.jobTitle}
-            onChange={handleChange} />
-          <p> {formErrors.jobTitle} </p>
+        <h1>Post Job - Trimulabs</h1>
 
-          <input
-            type='text'
-            name='commitment'
-            placeholder="Commitment"
-            value={formValues.commitment}
-            onChange={handleChange} />
-          <p> {formErrors.commitment} </p>
+        <input
+          type='text'
+          name='jobTitle'
+          placeholder="Job Title"
+          value={formValues.jobTitle}
+          onChange={handleChange} />
+        <p> {formErrors.jobTitle} </p>
 
-          <input
-            type='text'
-            name='companyName'
-            placeholder="Company Name"
-            value={formValues.companyName}
-            onChange={handleChange} />
-          <p> {formErrors.companyName} </p>
+        <input
+          type='text'
+          name='commitment'
+          placeholder="Commitment"
+          value={formValues.commitment}
+          onChange={handleChange} />
+        <p> {formErrors.commitment} </p>
 
-          <input
-            type='text'
-            name='location'
-            placeholder="Location"
-            value={formValues.location}
-            onChange={handleChange} />
-          <p> {formErrors.location} </p>
+        <input
+          type='text'
+          name='companyName'
+          placeholder="Company Name"
+          value={formValues.companyName}
+          onChange={handleChange} />
+        <p> {formErrors.companyName} </p>
 
-          <input
-            type='email'
-            name='email'
-            placeholder="Your Email"
-            value={formValues.email}
-            onChange={handleChange} />
-          <p> {formErrors.email} </p>
+        <input
+          type='text'
+          name='location'
+          placeholder="Location"
+          value={formValues.location}
+          onChange={handleChange} />
+        <p> {formErrors.location} </p>
 
-          <input
-            type='text'
-            name='description'
-            placeholder="Description Here..."
-            value={formValues.description}
-            onChange={handleChange} />
-          <p> {formErrors.description} </p>
+        <input
+          type='email'
+          name='email'
+          placeholder="Your Email"
+          value={formValues.email}
+          onChange={handleChange} />
+        <p> {formErrors.email} </p>
 
-          <input
-            type='text'
-            name='applyUrl'
-            placeholder="Apply URL"
-            value={formValues.applyUrl}
-            onChange={handleChange} />
-          <p> {formErrors.applyUrl} </p>
+        <input
+          type='text'
+          name='description'
+          placeholder="Description Here..."
+          value={formValues.description}
+          onChange={handleChange} />
+        <p> {formErrors.description} </p>
 
-          <button > Submit </button>
+        <input
+          type='text'
+          name='applyUrl'
+          placeholder="Apply URL"
+          value={formValues.applyUrl}
+          onChange={handleChange} />
+        <p> {formErrors.applyUrl} </p>
 
-          {Object.keys(formErrors).length === 0 && isSubmit
-            ? (<p>Job one is created successfully!</p>)
-            : ""
-          }
-        </form>
-      </>
-    </ApolloProvider>
+        <button > Submit </button>
+
+        {Object.keys(formErrors).length === 0 && isSubmit
+          ? (<p>Job one is created successfully!</p>)
+          : ""
+        }
+      </form>
+    </>
+
   );
 };
 export default App;
